@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,16 +149,17 @@
           <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
         </ul>
       </div>
     </div>
   </nav>
   
   <!-- Gahnoor Seller Banner -->
-  <section class="gahnoor-banner text-center mt-5 pt-5" data-aos="fade-down">
-    <img src="gahnoor_seller_banner_placeholder.png" alt="Gahnoor Seller Hub" class="img-fluid">
-  </section>
+  <img src="{% static 'images/gahnoor_seller_banner_placeholder1.png' %}" 
+     alt="Gahnoor Seller Hub" 
+     class="img-fluid "
+     data-aos="fade-down">
 
   <!-- Hero Section -->
   <section class="hero" data-aos="zoom-in">
@@ -168,7 +170,7 @@
       With intuitive tools, secure payment systems, marketing support, and real-time analytics,
       we make it easy for you to manage your brand, track your growth, and focus on what matters most — your craft.
        <P></P>Join today and let your creations shine on a global stage..</p>
-      <a href="#" class="btn btn-lg mt-3">Join Now</a>
+      <a href="register/" class="btn btn-lg mt-3">Join Now</a>
     </div>
   </section>
 

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gahnoor Seller Landing Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      /*background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);*/
+    }
+    .navbar {
+      background-color: rgb(255, 255, 255);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      font-size: 1.8rem;
+      color: #1C1C1C;
+    }
+    .nav-link {
+      color: #1C1C1C;
+      font-weight: 500;
+      margin-left: 15px;
+    }
+    .nav-link:hover {
+      color: #B76679;
+    }
+    footer {
+      background: #e2e3e7;
+      color: #1C1C1C;
+      text-align: center;
+      padding: 25px 0;
+      font-weight: 500;
+    }
+    </style>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+{% comment %} <body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">GAHNOOR</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <!-- Sidebar + Navbar -->
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="bg-light border-end p-3" style="width: 250px; min-height: 100vh;">
+      <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">GAHNOOR-SELLER</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard_home' %}">Dashboard Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'product-list' %}">Product Management</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'inventory' %}">Inventory</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'orders' %}">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'interactions' %}">Customer Interactions</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'transactions' %}">Transactions</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'reports' %}">Reports</a></li>
+      </ul>
+    </div>
+
+<h3 class="mb-4">Product Management</h3>
+
+<!-- Filter Section -->
+{% comment %} <form method="get" class="d-flex gap-2 mb-4">
+  <select name="category" class="form-select w-auto">
+    <option value="">All Categories</option>
+    {% for cat in categories %}
+      <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="material" class="form-select w-auto">
+    <option value="">All Materials</option>
+    {% for mat in materials %}
+      <option value="{{ mat.id }}" {% if selected_material == mat.id|stringformat:"s" %}selected{% endif %}>{{ mat.name }}</option>
+    {% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-dark">Filter</button>
+  <a href="{% url 'add_product' %}" class="btn btn-success ms-auto">+ Add Product</a>
+</form> {% endcomment %}
+{% comment %} <section>
+<form method="get" class="d-flex flex-wrap align-items-start gap-2 mb-4">
+  <!-- Category Dropdown -->
+  <div>
+    <label for="category" class="form-label mb-0 small">Category</label>
+    <select name="category" id="category" class="form-select">
+      <option value="">All Categories</option>
+      {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Material Dropdown -->
+  <div>
+    <label for="material" class="form-label mb-0 small">Material</label>
+    <select name="material" id="material" class="form-select">
+      <option value="">All Materials</option>
+      {% for mat in materials %}
+        <option value="{{ mat.id }}" {% if selected_material == mat.id|stringformat:"s" %}selected{% endif %}>{{ mat.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Filter Button -->
+  <div class="align-self-start">
+    <label class="form-label invisible">Filter</label> <!-- invisible label for spacing -->
+    <button type="submit" class="btn btn-dark">Filter</button>
+  </div>
+
+  <!-- Add Product Button (pushed to the right) -->
+  <div class="ms-auto align-self-start">
+    <label class="form-label invisible">Add</label> <!-- invisible label for spacing -->
+    <a href="{% url 'add_product' %}" class="btn btn-success">+ Add Product</a>
+  </div>
+</form>
+
+<!-- Product Cards -->
+<div class="row row-cols-1 row-cols-md-5 g-4">
+  {% for product in products %}
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text small text-muted">{{ product.category }} | {{ product.material }}</p>
+        <p class="card-text">₹{{ product.price }}</p>
+        <p class="card-text"><small>Stock: {{ product.count }}</small></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</section>
+</body> {% endcomment %}
+
+
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">GAHNOOR</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar + Content -->
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="bg-light border-end p-3" style="width: 250px; min-height: 100vh;">
+      <h4 class="fw-bold mb-4" style="font-family: 'Playfair Display', serif;">GAHNOOR-SELLER</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard_home' %}">Dashboard Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'product-list' %}">Product Management</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'inventory' %}">Inventory</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'orders' %}">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'interactions' %}">Customer Interactions</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'transactions' %}">Transactions</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'reports' %}">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="p-4 flex-grow-1">
+      <h3 class="mb-4">Product Management</h3>
+
+      <!-- Filter Section -->
+      <form method="get" class="d-flex flex-wrap align-items-start gap-2 mb-4">
+        <div>
+          <label for="category" class="form-label mb-0 small">Category</label>
+          <select name="category" id="category" class="form-select">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+              <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="material" class="form-label mb-0 small">Material</label>
+          <select name="material" id="material" class="form-select">
+            <option value="">All Materials</option>
+            {% for mat in materials %}
+              <option value="{{ mat.id }}" {% if selected_material == mat.id|stringformat:"s" %}selected{% endif %}>{{ mat.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="align-self-start">
+          <label class="form-label invisible">Filter</label>
+          <button type="submit" class="btn btn-dark">Filter</button>
+        </div>
+
+        <div class="ms-auto align-self-start">
+          <label class="form-label invisible">Add</label>
+          <a href="{% url 'add_product' %}" class="btn btn-success">+ Add Product</a>
+        </div>
+      </form>
+
+      <!-- Product Cards -->
+      <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for product in products %}
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text small text-muted">{{ product.category }} | {{ product.material }}</p>
+              <p class="card-text">₹{{ product.price }}</p>
+              <p class="card-text"><small>Stock: {{ product.count }}</small></p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div> <!-- End Main Content -->
+  </div> <!-- End d-flex -->
+</body>
+
+</html> 

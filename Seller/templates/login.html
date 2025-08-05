@@ -90,9 +90,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <a class="nav-link" href="{% url 'seller_landing' %}">Home</a>
+          <a class="nav-link" href="{% url 'seller_landing' %}">About</a>
+          <a class="nav-link" href="{% url 'seller_landing' %}">Contact</a>
         </ul>
       </div>
     </div>
@@ -101,27 +101,37 @@
   <div class="container">
     <div class="login-container">
       <h2 class="login-title">Seller Login</h2>
-      <form class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address*</label>
-          <input type="email" class="form-control" id="email" required>
-          <div class="invalid-feedback">Please enter a valid email</div>
-        </div>
+      <form method="post" action="{% url 'seller_login' %}" class="needs-validation" novalidate>
+  {% csrf_token %}
 
-        <div class="mb-3">
-          <label for="password" class="form-label">Password*</label>
-          <input type="password" class="form-control" id="password" required>
-          <div class="invalid-feedback">Password is required</div>
-        </div>
+  {% if messages %}
+    <div class="alert alert-danger">
+      {% for message in messages %}
+        <div>{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
 
-        <div class="d-grid">
-          <button type="submit" class="btn btn-login text-white">Login</button>
-        </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address*</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+    <div class="invalid-feedback">Please enter a valid email</div>
+  </div>
 
-        <div class="register-link mt-3">
-          Don't have an account? <a href="registration.html">Register here</a>
-        </div>
-      </form>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password*</label>
+    <input type="password" class="form-control" id="password" name="password" required>
+    <div class="invalid-feedback">Password is required</div>
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-login text-white">Login</button>
+  </div>
+
+  <div class="register-link mt-3">
+    Don't have an account? <a href="{% url 'seller_register' %}">Register</a>
+  </div>
+</form>
     </div>
   </div>
 
